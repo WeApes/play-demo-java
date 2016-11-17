@@ -1,16 +1,107 @@
-New log file opened at Thu Nov 17 11:06:59 CST 2016 by 24148@xiangpc
-Taking next connection to: 56827
-New client attempting to connect on port: 56828-56827
-  Address = /169.254.146.118:56827
-This client on port 56828 has uuid b687e20d-96a6-4fbd-ba5e-55a763ad65fd configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
-Connected Clients: activator-b687e20d-96a6-4fbd-ba5e-55a763ad65fd
-Taking next connection to: 56827
+New log file opened at Thu Nov 17 11:41:09 CST 2016 by 30236@xiangpc
+Taking next connection to: 57574
+New client attempting to connect on port: 57575-57574
+  Address = /169.254.146.118:57574
+This client on port 57575 has uuid 2a05e21d-3ba1-4b02-9443-e1b1da642668 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-2a05e21d-3ba1-4b02-9443-e1b1da642668
+Taking next connection to: 57574
+New client attempting to connect on port: 57576-57574
+  Address = /169.254.146.118:57574
+Handshake exception on socket: 57576
+sbt.impl.ipc.HandshakeException: Unable to perform handshake
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
+	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
+	at sbt.server.SbtServerSocketHandler$$anon$1.run(SbtServerSocketHandler.scala:43)
+Caused by: java.net.SocketException: Software caused connection abort: recv failed
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:150)
+	at java.net.SocketInputStream.read(SocketInputStream.java:121)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:265)
+	at java.io.DataInputStream.readInt(DataInputStream.java:387)
+	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
+	... 2 more
+Taking next connection to: 57574
+New client attempting to connect on port: 57577-57574
+  Address = /169.254.146.118:57574
+This client on port 57577 has uuid 44d9de94-3cc4-493e-8485-a64765587fee configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: activator-2a05e21d-3ba1-4b02-9443-e1b1da642668, play-fork-run-44d9de94-3cc4-493e-8485-a64765587fee
+Taking next connection to: 57574
 Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56827
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
 Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56827
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
 Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 56827
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Checking to see if clients are empty...
+We have 2 non-daemon clients, continuing serving connections.
+Taking next connection to: 57574
+Server socket closed java.net.SocketException: Socket operation on nonsocket: configureBlocking
+Server socket thread exiting.
+2 clients open, will close them...
+All client sockets have been closed.
+Closing the 30236@xiangpc logs at Thu Nov 17 12:53:41 CST 2016, goodbye.
