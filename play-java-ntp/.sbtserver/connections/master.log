@@ -1,0 +1,10 @@
+New log file opened at Thu Nov 17 11:06:59 CST 2016 by 24148@xiangpc
+Taking next connection to: 56827
+New client attempting to connect on port: 56828-56827
+  Address = /169.254.146.118:56827
+This client on port 56828 has uuid b687e20d-96a6-4fbd-ba5e-55a763ad65fd configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-b687e20d-96a6-4fbd-ba5e-55a763ad65fd
+Taking next connection to: 56827
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 56827
