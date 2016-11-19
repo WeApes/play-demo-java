@@ -9,6 +9,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * Created by lawrence on 19/11/2016.
@@ -38,5 +39,9 @@ public class Book extends Model {
     @NotNull
     @ManyToOne
     public Category category;
-    
+
+    public Date date;
+
+    public int accessCount;
+
 }
