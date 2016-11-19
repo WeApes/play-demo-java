@@ -16,5 +16,5 @@ public class Category extends Model {
 
     public String name;
 
-    List<Book> books;
+    public List<Book> books;
 }

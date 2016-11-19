@@ -5,11 +5,4 @@
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-#显示hot 的book数量
-GET 	/book						controllers.Books.books
-#显示new 的book数量
-GET		/bookNew					controllers.Books.getNew
-#显示book的具体信息
-GET		/bookMesge					controllers.Books.detail
-
-GET		/display/:paramType			controllers.Books.DisplayBooks
+GET		/display/:typeStr		controllers.Books.DisplayBooks(typeStr: String)
