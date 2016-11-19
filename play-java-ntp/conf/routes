@@ -11,3 +11,5 @@ GET 	/book						controllers.Books.books
 GET		/bookNew					controllers.Books.getNew
 #显示book的具体信息
 GET		/bookMesge					controllers.Books.detail
+
+GET		/display/:paramType			controllers.Books.DisplayBooks

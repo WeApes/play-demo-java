@@ -1,10 +1,10 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebeaninternal.server.lib.util.Str;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import models.bookDetail;
-import models.ebeanTest;
+import play.core.routing.Param;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -127,5 +127,30 @@ public class Books extends Controller {
 		string += "]";
 		
 		return ok(string);
+	}
+	
+	public Result DisplayBooks(String typeStr){
+		
+		String string;
+		
+		if (typeStr.equals("rec")){
+			string=getFind(typeStr, 6);
+		}
+		else if (typeStr.equals("hot")){
+			string=getFind(typeStr, 10)
+		}
+		else if (typeStr.equals("new")){
+			string=getFind(typeStr, 10);
+		}
+		else {
+			string=getFind(typeStr, 100);
+		}
+		
+		return ok(string);
+	}
+	
+	public static String getFind(String typeStr, int length){
+		
+		return "";
 	}
 }

@@ -38,4 +38,5 @@ public class Book extends Model {
     @NotNull
     @ManyToOne
     public Category category;
+    
 }

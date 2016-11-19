@@ -23,7 +23,7 @@ public class User extends Model {
     public String email;
 
     public String hashedPass;
-
+    
     public static Finder<String, User> find =
             new Finder<>(String.class, User.class);
 
