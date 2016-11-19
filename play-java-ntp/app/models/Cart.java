@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 public class Cart extends Model {
     @Id
-    public String id;
+    public Long id;
 
     public List<CartDescription> cartDescriptions;
 }

@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class CartDescription extends Model {
     @Id
-    public String id;
+    public Long id;
 
     @Constraints.Min(0)
     public int num;

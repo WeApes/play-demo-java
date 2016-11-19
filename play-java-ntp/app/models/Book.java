@@ -17,7 +17,7 @@ import java.util.Date;
 @Entity
 public class Book extends Model {
     @Id
-    public String id;
+    public Long id;
 
     @NotNull
     public String name;
@@ -43,5 +43,4 @@ public class Book extends Model {
     public Date date;
 
     public int accessCount;
-
 }

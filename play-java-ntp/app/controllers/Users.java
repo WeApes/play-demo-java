@@ -1,11 +1,11 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import models.User;
-import org.apache.commons.codec.digest.Md5Crypt;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
 import play.api.libs.mailer.MailerClient;
@@ -22,7 +22,9 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by lawrence on 16/11/2016.
@@ -43,7 +45,9 @@ public class Users extends Controller {
         final String uid = request().getQueryString("uid");
         final String date = request().getQueryString("date");
 
-        if (!cache.get("resetToken" + uid).equals(hash)) {
+        if (!cache
+                .get("resetToken" + uid)
+                .equals(hash)) {
             return badRequest();
         }
 
@@ -84,12 +88,19 @@ public class Users extends Controller {
                 .as("text/html"); //TODO Add Specific Render Or Not
     }
 
-    public Result captcha(String email) {
+    public Result captcha() {
+        final String email = request().getQueryString("email");
+        final String type = request().getQueryString("type");
+
+        if (!type.equals("login") && !type.equals("reset")) {
+            return badRequest("bad type");
+        }
+
         DefaultKaptcha captchaCreator = new DefaultKaptcha();
         captchaCreator.setConfig(new Config(new Properties()));
         String text = captchaCreator.createText();
 
-        cache.set(email, text, 10 * 60);
+        cache.set(type + email, text, 60 * 60);
 
         BufferedImage img = captchaCreator.createImage(text);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -117,9 +128,9 @@ public class Users extends Controller {
         final String is_remember = dynamicForm.get("is_remember");
         final boolean bIs_remember = Boolean.valueOf(is_remember);
 
-        final String text = cache.get("email");
+        final String text = cache.get("login" + email);
         if (!text.equals(captcha)) {
-            return redirect("/login");
+            return badRequest("wrong captcha");
         }
 
         final User userByUserName = User.getUserByEmail(email);
@@ -131,22 +142,22 @@ public class Users extends Controller {
         if (bIs_remember) {
             session("name", user_name);
         }
+
         Utils.addCORS();
-        return redirect("/");
+        return ok();
     }
 
     public Result logout() {
         session().clear();
-        return redirect("/");
+        return ok();
     }
 
     public Result register() {
-        final DynamicForm dynamicForm =
-                Form.form().bindFromRequest(request());
+        final JsonNode jsonNode = request().body().asJson();
 
-        final String user_name = dynamicForm.get("user_name");
-        final String password = dynamicForm.get("password");
-        final String email = dynamicForm.get("email");
+        final String user_name = jsonNode.get("user_name").asText();
+        final String password = jsonNode.get("password").asText();
+        final String email = jsonNode.get("email").asText();
 
         if (Strings.isNullOrEmpty(user_name) ||
                 user_name.length() > 40 || Strings.isNullOrEmpty(password)) {
@@ -159,11 +170,28 @@ public class Users extends Controller {
             return badRequest("user is registered");
         }
 
-        final User user = new User(user_name, email, password);
+        String address = "";
+        if (jsonNode.get("address") != null) {
+            address = jsonNode.get("address").textValue();
+        }
+        byte[] profile = null;
+        try {
+            final JsonNode profileNode = jsonNode.get("head");
+            if (profileNode != null) {
+                profile = profileNode.binaryValue();
+            }
+        } catch (IOException ignored) {}
+
+        final User user = new User();
+        user.name = user_name;
+        user.email = email;
+        user.hashedPass = BCrypt.hashpw(password, BCrypt.gensalt());
+        user.addr = address;
+        user.profile = profile;
         user.save();
 
         Utils.addCORS();
-        return redirect("/");
+        return ok();
     }
 
     public Result forget() {
@@ -171,13 +199,13 @@ public class Users extends Controller {
                 Form.form().bindFromRequest(request());
 
         final String captcha = dynamicForm.get("captcha");
+        final String email = dynamicForm.get("email");
 
-        final String text = cache.get("text");
+        final String text = cache.get("reset" + email);
+
         if (!text.equals(captcha)) {
             return badRequest("Wrong Captcha");
         }
-
-        final String email = dynamicForm.get("email");
 
         final User lostUser = User.find
                 .where().eq("email", email)
@@ -187,10 +215,11 @@ public class Users extends Controller {
             return badRequest();
         }
 
-        final Date date = new Date();
-        final String uid = lostUser.id;
-        final String hash = Md5Crypt.md5Crypt((date.toString() + uid).getBytes(),
-                "i am a salt");
+        final String uid = lostUser.id.toString();
+        final long now = System.currentTimeMillis();
+        final String hash = BCrypt.hashpw((Long.toString(now) + uid), BCrypt.gensalt());
+//                Md5Crypt.md5Crypt((Long.toString(now) + uid)
+//                                .getBytes());
 
         cache.set("resetToken" + uid, hash, 15 * 60);
 
@@ -202,10 +231,11 @@ public class Users extends Controller {
                 .setFrom("Shop <llpookk@163.com>")
                 .setTo(to)
                 .setBodyHtml("Click the link --> "
-                        + "http://localhost:9000/resetpass?"
-                        + "date=" + date.toString() + "&"
+                        + "<a href=http://localhost:9000/resetpass?"
+                        + "date=" + Long.toString(now) + "&"
                         + "uid=" + uid + "&"
-                        + "hash" + hash);
+                        + "hash" + hash + ">"
+                        + "click me</a>");
         emailClient.send(toSend);
 
         Utils.addCORS();

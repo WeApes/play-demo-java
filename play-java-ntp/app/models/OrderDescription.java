@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class OrderDescription extends Model {
     @Id
-    public String id;
+    public Long id;
 
     public int num;
 

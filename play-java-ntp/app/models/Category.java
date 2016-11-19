@@ -12,7 +12,9 @@ import java.util.List;
 @Entity
 public class Category extends Model {
     @Id
+    public Long id;
+
     public String name;
 
-    public List<Book> books;
+    List<Book> books;
 }

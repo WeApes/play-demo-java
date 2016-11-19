@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 public class BookOrder extends Model {
     @Id
-    public String id;
+    public Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     public User user;
